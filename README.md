@@ -50,7 +50,7 @@ Example 2:
 local bilateral = require('bilateral')
 local image = require('image')
 
-local img = image.load('testRGB.jpg',3,'float') -- load as float [0,1]
+local img = image.load('dragon.jpg',3,'float') -- load as float [0,1]
 
 -- Linearize (remove gamma, usually gamma = 2.2)
 img:pow(2.2)
@@ -66,10 +66,10 @@ local filteredLum = bilateral.filter(lum)
 local filtered = img:clone()
 for i=1,3 do filtered[i]:cmul(filteredLum):cdiv(lum) end
 -- Replace NaNs from division with 0
-filtered[filtered:ne(ret)] = 0 
+filtered[filtered:ne(filtered)] = 0 
 
 -- Add gamma and save
 filtered:pow(1/2.2)
-image.save('filteredRGB.jpg',filtered)
+image.save('dragonFiltered.jpg',filtered)
 
 ```
